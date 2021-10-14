@@ -1,0 +1,50 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31808.319
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples", "Samples\Samples.csproj", "{32B1D71A-D16B-4705-B489-4122D4E29705}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SharedResources", "SharedResources", "{4FA8FF9F-7882-48CC-AEA5-27DBA2FDBA48}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Net472", "Net472", "{BF4513F6-ADFC-420B-9C5D-0AC3471B3A62}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Panuon.UI.Charts", "..\SharedResources\Panuon.UI.Charts\Panuon.UI.Charts.shproj", "{AD553852-669A-4A70-8A54-8AE8FE7A993F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Panuon.UI.Charts", "..\Net472\Panuon.UI.Charts\Panuon.UI.Charts.csproj", "{327C5A5A-C293-4247-9E71-E6499CF067FB}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Panuon.UI.Charts.Internal", "..\SharedResources\Panuon.UI.Charts.Internal\Panuon.UI.Charts.Internal.shproj", "{B1093913-2CAB-4367-802A-16812E8B5A13}"
+EndProject
+Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		..\SharedResources\Panuon.UI.Charts.Internal\Panuon.UI.Charts.Internal.projitems*{327c5a5a-c293-4247-9e71-e6499cf067fb}*SharedItemsImports = 4
+		..\SharedResources\Panuon.UI.Charts\Panuon.UI.Charts.projitems*{327c5a5a-c293-4247-9e71-e6499cf067fb}*SharedItemsImports = 4
+		..\SharedResources\Panuon.UI.Charts\Panuon.UI.Charts.projitems*{ad553852-669a-4a70-8a54-8ae8fe7a993f}*SharedItemsImports = 13
+		..\SharedResources\Panuon.UI.Charts.Internal\Panuon.UI.Charts.Internal.projitems*{b1093913-2cab-4367-802a-16812e8b5a13}*SharedItemsImports = 13
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{32B1D71A-D16B-4705-B489-4122D4E29705}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32B1D71A-D16B-4705-B489-4122D4E29705}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32B1D71A-D16B-4705-B489-4122D4E29705}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32B1D71A-D16B-4705-B489-4122D4E29705}.Release|Any CPU.Build.0 = Release|Any CPU
+		{327C5A5A-C293-4247-9E71-E6499CF067FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{327C5A5A-C293-4247-9E71-E6499CF067FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{327C5A5A-C293-4247-9E71-E6499CF067FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{327C5A5A-C293-4247-9E71-E6499CF067FB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AD553852-669A-4A70-8A54-8AE8FE7A993F} = {4FA8FF9F-7882-48CC-AEA5-27DBA2FDBA48}
+		{327C5A5A-C293-4247-9E71-E6499CF067FB} = {BF4513F6-ADFC-420B-9C5D-0AC3471B3A62}
+		{B1093913-2CAB-4367-802A-16812E8B5A13} = {4FA8FF9F-7882-48CC-AEA5-27DBA2FDBA48}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7E03147F-663D-48FD-9F25-E2A3D89D3899}
+	EndGlobalSection
+EndGlobal

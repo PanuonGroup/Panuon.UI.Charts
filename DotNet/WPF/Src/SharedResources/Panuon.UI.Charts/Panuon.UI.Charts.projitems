@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>ad553852-669a-4a70-8a54-8ae8fe7a993f</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Panuon.UI.Charts</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Utils\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Contracts\IXAxis.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Contracts\IYAxis.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\CartesianChartPanel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Events\GeneratingLabelEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Events\GeneratingLabelEventHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Axes\Abstracts\AxisBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Series\Abstracts\ChartSeriesBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Series\LineChartSeries.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Axes\XAxis.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Axes\YAxis.cs" />
+  </ItemGroup>
+</Project>
