@@ -9,11 +9,18 @@
     <Import_RootNamespace>Panuon.UI.Charts.Internal</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\Charts\PieChartPresenter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\Series\ArcDrawingElement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\Components\ChartsPresenter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\Components\YAxisPresenter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\Components\XAxisPresenter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\Series\Abstracts\DrawingElementBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Events\RedrawEventHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Events\RedrawEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Resources\TemplateKeys.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\ArcUtil.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Controls\Components\" />
   </ItemGroup>
 </Project>

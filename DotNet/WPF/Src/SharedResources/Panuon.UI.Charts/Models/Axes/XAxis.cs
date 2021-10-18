@@ -1,5 +1,4 @@
-﻿using Panuon.UI.Charts.Events;
-using Panuon.UI.Charts.Internal;
+﻿using Panuon.UI.Charts.Internal;
 using System;
 using System.Collections;
 using System.Collections.Generic;

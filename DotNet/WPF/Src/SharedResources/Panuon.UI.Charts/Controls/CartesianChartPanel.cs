@@ -7,7 +7,7 @@ using System.Windows.Media;
 
 namespace Panuon.UI.Charts
 {
-    public class CartesianChartPanel : FrameworkElement
+    public class CartesianChartPanel : ChartPanelBase
     {
         #region Fields
         private static XAxis _defaultXAxis;
@@ -66,9 +66,6 @@ namespace Panuon.UI.Charts
         public ObservableCollection<YAxis> YAxes => _yAxes;
         #endregion
 
-        #region Series
-        #endregion
-
         #endregion
 
         #region Overrides
@@ -113,23 +110,10 @@ namespace Panuon.UI.Charts
         #region Event Handlers
         private void Axes_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            foreach(var )
-            if (oldAxis != null)
-            {
-                oldAxis.Redraw -= Axis_Redraw;
-                RemoveLogicalChild(oldAxis);
-            }
-            if (newAxis != null)
-            {
-                newAxis.Redraw += Axis_Redraw;
-                AddLogicalChild(newAxis);
-            }
-            chart.Redraw(false);
         }
 
         private void Axis_Redraw(object sender, Internal.RedrawEventArgs e)
         {
-            Redraw(e.ForceRender);
         }
         #endregion
 

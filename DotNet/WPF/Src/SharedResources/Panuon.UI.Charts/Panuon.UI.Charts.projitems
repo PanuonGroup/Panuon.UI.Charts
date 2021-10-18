@@ -9,18 +9,28 @@
     <Import_RootNamespace>Panuon.UI.Charts</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Controls\Abstracts\" />
     <Folder Include="$(MSBuildThisFileDirectory)Utils\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Contracts\IXAxis.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Contracts\IYAxis.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\CartesianChartPanel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\Abstracts\ChartPanelBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\PieChartPanel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Events\GeneratingLabelEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Events\SeriesChangedEventHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Events\GeneratingLabelEventHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Events\SeriesChangedEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Axes\Abstracts\AxisBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\ChartSeriesPropertyMetadata.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\SeriesCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Series\Abstracts\ChartSeriesBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Series\Abstracts\CartesianSeriesBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Series\LineChartSeries.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Axes\XAxis.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Axes\YAxis.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Series\DoughnutSeries.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Series\PieSeries.cs" />
   </ItemGroup>
 </Project>
