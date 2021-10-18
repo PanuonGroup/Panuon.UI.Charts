@@ -18,7 +18,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Events\RedrawEventHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Events\RedrawEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Resources\TemplateKeys.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Utils\ArcUtil.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\ShapeUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Controls\Components\" />

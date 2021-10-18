@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Controls\Abstracts\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Models\Series\Pie\" />
     <Folder Include="$(MSBuildThisFileDirectory)Utils\" />
   </ItemGroup>
   <ItemGroup>
@@ -30,7 +31,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\Series\LineChartSeries.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Axes\XAxis.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Axes\YAxis.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Series\DoughnutSeries.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Series\PieSeries.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Series\Pie\DoughnutChartSeries.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Series\Pie\PieChartSeries.cs" />
   </ItemGroup>
 </Project>

@@ -11,3 +11,16 @@ E:\Panuon.UI.Charts\DotNet\WPF\Src\Net472\Panuon.UI.Charts\obj\Debug\Panuon.UI.C
 E:\Panuon.UI.Charts\DotNet\WPF\Src\Net472\Panuon.UI.Charts\obj\Debug\Panuon.UI.Charts.dll
 E:\Panuon.UI.Charts\DotNet\WPF\Src\Net472\Panuon.UI.Charts\obj\Debug\Panuon.UI.Charts.pdb
 E:\Panuon.UI.Charts\DotNet\WPF\Src\Net472\Panuon.UI.Charts\bin\Debug\Panuon.UI.Core.dll
+D:\Panuon\Panuon.UI.Charts\DotNet\WPF\Src\Net472\Panuon.UI.Charts\bin\Debug\Panuon.UI.Charts.dll
+D:\Panuon\Panuon.UI.Charts\DotNet\WPF\Src\Net472\Panuon.UI.Charts\bin\Debug\Panuon.UI.Charts.pdb
+D:\Panuon\Panuon.UI.Charts\DotNet\WPF\Src\Net472\Panuon.UI.Charts\bin\Debug\Panuon.UI.Core.dll
+D:\Panuon\Panuon.UI.Charts\DotNet\WPF\Src\Net472\Panuon.UI.Charts\obj\Debug\Panuon.UI.Charts.csproj.AssemblyReference.cache
+D:\Panuon\Panuon.UI.Charts\DotNet\WPF\Src\Net472\Panuon.UI.Charts\obj\Debug\Panuon.UI.Charts_MarkupCompile.cache
+D:\Panuon\Panuon.UI.Charts\DotNet\WPF\Src\Net472\Panuon.UI.Charts\obj\Debug\Panuon.UI.Charts_MarkupCompile.lref
+D:\Panuon\Panuon.UI.Charts\DotNet\WPF\Src\Net472\Panuon.UI.Charts\obj\Debug\Themes\Generic.baml
+D:\Panuon\Panuon.UI.Charts\DotNet\WPF\Src\Net472\Panuon.UI.Charts\obj\Debug\Panuon.UI.Charts.g.resources
+D:\Panuon\Panuon.UI.Charts\DotNet\WPF\Src\Net472\Panuon.UI.Charts\obj\Debug\Panuon.UI.Charts.Properties.Resources.resources
+D:\Panuon\Panuon.UI.Charts\DotNet\WPF\Src\Net472\Panuon.UI.Charts\obj\Debug\Panuon.UI.Charts.csproj.GenerateResource.cache
+D:\Panuon\Panuon.UI.Charts\DotNet\WPF\Src\Net472\Panuon.UI.Charts\obj\Debug\Panuon.UI.Charts.csproj.CoreCompileInputs.cache
+D:\Panuon\Panuon.UI.Charts\DotNet\WPF\Src\Net472\Panuon.UI.Charts\obj\Debug\Panuon.UI.Charts.dll
+D:\Panuon\Panuon.UI.Charts\DotNet\WPF\Src\Net472\Panuon.UI.Charts\obj\Debug\Panuon.UI.Charts.pdb

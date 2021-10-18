@@ -6,7 +6,7 @@ using System.Windows.Media;
 
 namespace Panuon.UI.Charts
 {
-    public class DoughnutSeries : ChartSeriesBase
+    public class PieChartSeries : ChartSeriesBase
     {
         #region Ctor
         #endregion
@@ -21,7 +21,7 @@ namespace Panuon.UI.Charts
         }
 
         public static readonly DependencyProperty ValueProperty =
-            DependencyProperty.Register("Value", typeof(object), typeof(PieSeries), new ChartSeriesPropertyMetadata(null));
+            DependencyProperty.Register("Value", typeof(object), typeof(PieChartSeries), new ChartSeriesPropertyMetadata(null));
         #endregion
 
         #region ValueMemberPath
@@ -32,9 +32,20 @@ namespace Panuon.UI.Charts
         }
 
         public static readonly DependencyProperty ValueMemberPathProperty =
-            DependencyProperty.Register("ValueMemberPath", typeof(string), typeof(PieSeries), new ChartSeriesPropertyMetadata(null));
+            DependencyProperty.Register("ValueMemberPath", typeof(string), typeof(PieChartSeries), new ChartSeriesPropertyMetadata(null));
         #endregion
 
+        #region DoubleValue
+        public double DoubleValue => GetDoubleValue();
+        #endregion
+
+        #endregion
+
+        #region Internal Methods
+        private double GetDoubleValue()
+        {
+            return double.Parse(Value.ToString());
+        }
         #endregion
     }
 }

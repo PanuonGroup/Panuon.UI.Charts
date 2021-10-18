@@ -49,7 +49,7 @@ namespace Panuon.UI.Charts
         {
             _visualChildren.Add(child);
             base.AddVisualChild(child);
-        }
+        } 
 
         protected void AddLogicalChild(DependencyObject child)
         {
@@ -92,7 +92,7 @@ namespace Panuon.UI.Charts
         private void Series_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             var newItems = new List<ChartSeriesBase>();
-            var oldItems = new List<ChartSeriesBase>();
+            var removedItems = new List<ChartSeriesBase>();
 
             if (e.NewItems != null)
             {
@@ -101,6 +101,7 @@ namespace Panuon.UI.Charts
                     if (item != null)
                     {
                         newItems.Add(item);
+                        AddLogicalChild(item);
                     }
                 }
             }
@@ -110,12 +111,13 @@ namespace Panuon.UI.Charts
                 {
                     if (item != null)
                     {
-                        oldItems.Add(item);
+                        removedItems.Add(item);
+                        RemoveLogicalChild(item);
                     }
                 }
             }
 
-            SeriesChanged?.Invoke(this, new SeriesChangedEventArgs(newItems, oldItems));
+            SeriesChanged?.Invoke(this, new SeriesChangedEventArgs(newItems, removedItems));
         }
         #endregion
     }

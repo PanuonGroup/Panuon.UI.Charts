@@ -6,7 +6,7 @@ using System.Windows.Media;
 
 namespace Panuon.UI.Charts
 {
-    public abstract class ChartSeriesBase : DependencyObject
+    public abstract class ChartSeriesBase : FrameworkElement
     {
         #region Events
         public event EventHandler InvalidDrawing;

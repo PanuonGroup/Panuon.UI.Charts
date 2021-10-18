@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Media;
 
@@ -10,6 +9,8 @@ namespace Panuon.UI.Charts.Internal.Controls
     internal class PieChartPresenter : FrameworkElement
     {
         #region Fields
+        private double _interval = 0.003;
+
         private PieChartPanel _pieChartPanel;
 
         private readonly List<ArcDrawingElement> _arcDrawingElements = new List<ArcDrawingElement>();
@@ -49,9 +50,27 @@ namespace Panuon.UI.Charts.Internal.Controls
         #region ArrangeOverride
         protected override Size ArrangeOverride(Size finalSize)
         {
-            foreach (var arcDrawingElement in _arcDrawingElements)
+            var radius = Math.Min(finalSize.Width / 2, finalSize.Height / 2);
+
+            var totalValue = 0d;
+            foreach (var pieSeries in _arcDrawingElements.Select(x => (PieChartSeries)x.SeriesBase))
             {
-                arcDrawingElement.Arrange(new Rect(0, 0, finalSize.Width, finalSize.Height));
+                totalValue += pieSeries.DoubleValue;
+            }
+
+            if (totalValue != 0)
+            {
+                var totalAnglePercent = 0d;
+                foreach (var arcDrawingElement in _arcDrawingElements)
+                {
+                    var anglePercent = ((PieChartSeries)arcDrawingElement.SeriesBase).DoubleValue / totalValue;
+                    arcDrawingElement.StartAnglePercent = totalAnglePercent;
+                    arcDrawingElement.AnglePercent = anglePercent - _interval;
+                    arcDrawingElement.Radius = radius;
+                    totalAnglePercent += anglePercent;
+
+                    arcDrawingElement.Arrange(new Rect(0, 0, finalSize.Width, finalSize.Height));
+                }
             }
             return base.ArrangeOverride(finalSize);
         }
@@ -78,9 +97,12 @@ namespace Panuon.UI.Charts.Internal.Controls
             {
                 foreach (var seriesBase in e.AddedSeries)
                 {
-                    var arcDrawingElement = new ArcDrawingElement(seriesBase);
-                    _arcDrawingElements.Add(arcDrawingElement);
-                    AddVisualChild(arcDrawingElement);
+                    if(seriesBase is PieChartSeries pieChartSeries)
+                    {
+                        var arcDrawingElement = new ArcDrawingElement(pieChartSeries);
+                        _arcDrawingElements.Add(arcDrawingElement);
+                        AddVisualChild(arcDrawingElement);
+                    }
                 }
             }
             InvalidateVisual();
@@ -94,9 +116,12 @@ namespace Panuon.UI.Charts.Internal.Controls
             {
                 foreach (var seriesBase in _pieChartPanel.Series)
                 {
-                    var arcDrawingElement = new ArcDrawingElement(seriesBase);
-                    _arcDrawingElements.Add(arcDrawingElement);
-                    AddVisualChild(arcDrawingElement);
+                    if (seriesBase is PieChartSeries pieChartSeries)
+                    {
+                        var arcDrawingElement = new ArcDrawingElement(pieChartSeries);
+                        _arcDrawingElements.Add(arcDrawingElement);
+                        AddVisualChild(arcDrawingElement);
+                    }
                 }
             }
             InvalidateVisual();
