@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows;
 
 namespace Panuon.UI.Charts.Internal.Controls
@@ -8,15 +6,19 @@ namespace Panuon.UI.Charts.Internal.Controls
     internal abstract class DrawingElementBase : FrameworkElement
     {
         #region Ctor
-        public DrawingElementBase(ChartSeriesBase seriesBase)
+        public DrawingElementBase(ChartPanelBase chartPanel,ChartSeriesBase series)
         {
-            SeriesBase = seriesBase;
-            seriesBase.InvalidDrawing += SeriesBase_InvalidDrawing;
+            ChartPanel = chartPanel;
+            chartPanel.InvalidDrawing += ChartPanel_InvalidDrawing;
+
+            Series = series;
+            series.InvalidDrawing += SeriesBase_InvalidDrawing;
         }
         #endregion
 
         #region Properties
-        public ChartSeriesBase SeriesBase { get; }
+        public ChartPanelBase ChartPanel { get; }
+        public ChartSeriesBase Series { get; }
         #endregion
 
         #region Virtual Methods
@@ -24,6 +26,12 @@ namespace Panuon.UI.Charts.Internal.Controls
         #endregion
 
         #region Event Handlers
+        private void ChartPanel_InvalidDrawing(object sender, EventArgs e)
+        {
+            InvalidateVisual();
+            OnInvalidDrawing();
+        }
+
         private void SeriesBase_InvalidDrawing(object sender, EventArgs e)
         {
             InvalidateVisual();

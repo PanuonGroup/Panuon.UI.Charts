@@ -4,7 +4,7 @@ using System.Windows.Media;
 
 namespace Panuon.UI.Charts
 {
-    public class LineChartSeries : CartesianSeriesBase
+    public class LineChartSeries : CartesianChartSeriesBase
     {
         #region Properties
         

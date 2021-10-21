@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Windows.Markup;
 using System.Windows.Media;
 using System.Linq;
+using System.Collections;
 
 namespace Panuon.UI.Charts
 {
@@ -16,6 +17,7 @@ namespace Panuon.UI.Charts
         protected readonly List<UIElement> _visualChildren = new List<UIElement>();
 
         protected readonly List<DependencyObject> _logicalChildren = new List<DependencyObject>();
+
         #endregion
 
         #region Ctor
@@ -27,6 +29,8 @@ namespace Panuon.UI.Charts
 
         #region Events
         public event SeriesChangedEventHandler SeriesChanged;
+
+        public event EventHandler InvalidDrawing;
         #endregion
 
         #region Properties
@@ -64,6 +68,13 @@ namespace Panuon.UI.Charts
         protected override Visual GetVisualChild(int index) => _visualChildren[index];
         #endregion
 
+        #region Methods
+        public void InvalidateDrawing()
+        {
+            InvalidDrawing?.Invoke(this, new EventArgs());
+        }
+        #endregion
+
         #region Event Handlers
         private static void OnSeriesChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -87,6 +98,8 @@ namespace Panuon.UI.Charts
             {
                 chartPanel.SeriesChanged?.Invoke(chartPanel, new SeriesChangedEventArgs(addedItems, removedItems));
             }
+
+            chartPanel.InvalidateArrange();
         }
 
         private void Series_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -119,6 +132,7 @@ namespace Panuon.UI.Charts
 
             SeriesChanged?.Invoke(this, new SeriesChangedEventArgs(newItems, removedItems));
         }
+
         #endregion
     }
 }

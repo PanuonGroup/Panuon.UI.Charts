@@ -10,8 +10,8 @@ namespace Panuon.UI.Charts.Internal.Controls
     internal class ArcDrawingElement : DrawingElementBase
     {
         #region Ctor
-        public ArcDrawingElement(PieChartSeries series) 
-            : base(series)
+        public ArcDrawingElement(PieChartPanel pieChartPanel, PieChartSeriesBase series)
+            : base(pieChartPanel, series)
         {
         }
         #endregion
@@ -40,17 +40,6 @@ namespace Panuon.UI.Charts.Internal.Controls
             DependencyProperty.Register("AnglePercent", typeof(double), typeof(ArcDrawingElement), new FrameworkPropertyMetadata(0d, FrameworkPropertyMetadataOptions.AffectsRender));
         #endregion
 
-        #region Radius
-        public double Radius
-        {
-            get { return (double)GetValue(RadiusProperty); }
-            set { SetValue(RadiusProperty, value); }
-        }
-
-        public static readonly DependencyProperty RadiusProperty =
-            DependencyProperty.Register("Radius", typeof(double), typeof(ArcDrawingElement), new FrameworkPropertyMetadata(0d, FrameworkPropertyMetadataOptions.AffectsRender));
-        #endregion
-
         #endregion
 
         #region Overrides
@@ -62,57 +51,106 @@ namespace Panuon.UI.Charts.Internal.Controls
 
         protected override void OnRender(DrawingContext drawingContext)
         {
-            if (SeriesBase is DoughnutChartSeries doughnutSeries)
+            if (Series is DoughnutSeries doughnutSeries)
             {
-                //var radius = Radius - doughnutSeries.Thickness / 2;
-                //var centerPoint = new Point(RenderSize.Width / 2, RenderSize.Height / 2);
-                //var startPoint = ArcUtil.PointOnCircle(centerPoint, radius, StartAnglePercent);
-                //var endPoint = ArcUtil.PointOnCircle(centerPoint, radius, StartAnglePercent + AnglePercent);
-
-                //var pathBuilder = new StringBuilder();
-                //if (AnglePercent > 0)
-                //{
-                //    pathBuilder.Append($"M{startPoint.X},{startPoint.Y} A{radius},{radius} 0 {(AnglePercent > 0.5 ? 1 : 0)} 1 ");
-                //        pathBuilder.Append($"{endPoint.X},{endPoint.Y}");
-
-                //}
-                //var path = Geometry.Parse(pathBuilder.ToString());
-                //drawingContext.DrawGeometry(null, new Pen(doughnutSeries.Fill, doughnutSeries.Thickness), path);
-                DrawDoughnutChartSeries(drawingContext, doughnutSeries);
+                DrawFromDoughnutSeries(drawingContext, doughnutSeries);
             }
-            else if (SeriesBase is PieChartSeries pieSeries)
+            else if (Series is PieSeries pieSeries)
             {
-
+                DrawFromPieSeries(drawingContext, pieSeries);
             }
         }
         #endregion
 
         #region Functions
-        private void DrawDoughnutChartSeries(DrawingContext drawingContext, DoughnutChartSeries doughnutSeries)
+        private void DrawFromPieSeries(DrawingContext drawingContext, PieSeries pieSeries)
+        {
+            if (AnglePercent < 0)
+            {
+                return;
+            }
+
+            var pieChartPanel = (PieChartPanel)ChartPanel;
+            var radius = pieChartPanel.Radius
+                ?? Math.Min(RenderSize.Width / 2, RenderSize.Height / 2);
+            var spacingAngle = ShapeUtil.AnglePercentFromArcLength(pieChartPanel.Spacing, radius);
+            var anglePercent = AnglePercent - spacingAngle;
+
+            var cornerRadius = pieChartPanel.CornerRadius;
+            var outerRadius = radius;
+
+            var centerPoint = new Point(RenderSize.Width / 2, RenderSize.Height / 2);
+
+            var outerStartPoint = ShapeUtil.PointOnCircle(centerPoint, outerRadius, StartAnglePercent);
+            var outerHalfPoint = ShapeUtil.PointOnCircle(centerPoint, outerRadius, StartAnglePercent + anglePercent / 2);
+            var outerEndPoint = ShapeUtil.PointOnCircle(centerPoint, outerRadius, StartAnglePercent + anglePercent);
+            var innerCenterPoint = ShapeUtil.PointFromDistance(centerPoint, outerHalfPoint, Math.Sqrt(pieChartPanel.Spacing));
+
+            var pathBuilder = new StringBuilder();
+
+            if (cornerRadius == 0)
+            {
+                pathBuilder.Append($@"M {outerStartPoint.X},{outerStartPoint.Y} A{outerRadius},{outerRadius} 0 {(anglePercent > 0.5 ? 1 : 0)} 1 {outerEndPoint.X},{outerEndPoint.Y}
+                                                        L {innerCenterPoint.X},{innerCenterPoint.Y}
+                                                        Z");
+            }
+            else
+            {
+                var outerAngleOffset = ShapeUtil.AnglePercentFromArcLength(cornerRadius, outerRadius);
+                var innerAngleOffset = ShapeUtil.AnglePercentFromArcLength(cornerRadius, cornerRadius);
+
+                var outerStartPoint1 = ShapeUtil.PointFromDistance(outerStartPoint, innerCenterPoint, cornerRadius);
+                var outerStartPoint2 = ShapeUtil.PointOnCircle(centerPoint, outerRadius, StartAnglePercent + outerAngleOffset);
+                var outerEndPoint1 = ShapeUtil.PointOnCircle(centerPoint, outerRadius, StartAnglePercent + anglePercent - outerAngleOffset);
+                var outerEndPoint2 = ShapeUtil.PointFromDistance(outerEndPoint, innerCenterPoint, cornerRadius);
+
+                pathBuilder.Append($@"M {outerStartPoint1.X},{outerStartPoint1.Y} 
+                                                        A {cornerRadius},{cornerRadius} 0 0 1 {outerStartPoint2.X},{outerStartPoint2.Y} 
+                                                        A {outerRadius},{outerRadius} 0 {(anglePercent > 0.5 ? 1 : 0)} 1 {outerEndPoint1.X},{outerEndPoint1.Y}
+                                                        A {cornerRadius},{cornerRadius} 0 0 1 {outerEndPoint2.X},{outerEndPoint2.Y}
+                                                        L {innerCenterPoint.X},{innerCenterPoint.Y}
+                                                        Z");
+            }
+
+            try
+            {
+                var path = Geometry.Parse(pathBuilder.ToString());
+                drawingContext.DrawGeometry(pieSeries.Fill, new Pen(pieSeries.Stroke, pieSeries.StrokeThickness), path);
+            }
+            catch { }
+        }
+
+        private void DrawFromDoughnutSeries(DrawingContext drawingContext, DoughnutSeries doughnutSeries)
         {
             if(AnglePercent < 0)
             {
                 return;
             }
 
-            var cornerRadius = doughnutSeries.CornerRadius;
+            var pieChartPanel = (PieChartPanel)ChartPanel;
+            var radius = pieChartPanel.Radius
+              ?? Math.Min(RenderSize.Width / 2, RenderSize.Height / 2);
+            var spacingAngle = ShapeUtil.AnglePercentFromArcLength(pieChartPanel.Spacing, radius);
+            var anglePercent = AnglePercent - spacingAngle;
 
-            var outerRadius = Radius;
+            var cornerRadius = pieChartPanel.CornerRadius;
+
+            var outerRadius = radius;
             var innerRadius = outerRadius - doughnutSeries.Thickness;
 
             var centerPoint = new Point(RenderSize.Width / 2, RenderSize.Height / 2);
 
             var innerStartPoint = ShapeUtil.PointOnCircle(centerPoint, innerRadius, StartAnglePercent);
-            var innerEndPoint = ShapeUtil.PointOnCircle(centerPoint, innerRadius, StartAnglePercent + AnglePercent);
+            var innerEndPoint = ShapeUtil.PointOnCircle(centerPoint, innerRadius, StartAnglePercent + anglePercent);
             var outerStartPoint = ShapeUtil.PointOnCircle(centerPoint, outerRadius, StartAnglePercent);
-            var outerEndPoint = ShapeUtil.PointOnCircle(centerPoint, outerRadius, StartAnglePercent + AnglePercent);
+            var outerEndPoint = ShapeUtil.PointOnCircle(centerPoint, outerRadius, StartAnglePercent + anglePercent);
 
             var pathBuilder = new StringBuilder();
 
             if(cornerRadius == 0)
             {
-                pathBuilder.Append($@"M {outerStartPoint.X},{outerStartPoint.Y} A{outerRadius},{outerRadius} 0 {(AnglePercent > 0.5 ? 1 : 0)} 1 {outerEndPoint.X},{outerEndPoint.Y}
-                                                        L {innerEndPoint.X},{innerEndPoint.Y} A{innerRadius},{innerRadius} 0 {(AnglePercent > 0.5 ? 1 : 0)} 0 {innerStartPoint.X},{innerStartPoint.Y}  
+                pathBuilder.Append($@"M {outerStartPoint.X},{outerStartPoint.Y} A{outerRadius},{outerRadius} 0 {(anglePercent > 0.5 ? 1 : 0)} 1 {outerEndPoint.X},{outerEndPoint.Y}
+                                                        L {innerEndPoint.X},{innerEndPoint.Y} A{innerRadius},{innerRadius} 0 {(anglePercent > 0.5 ? 1 : 0)} 0 {innerStartPoint.X},{innerStartPoint.Y}  
                                                         Z");
             }
             else
@@ -122,27 +160,33 @@ namespace Panuon.UI.Charts.Internal.Controls
 
                 var outerStartPoint1 = ShapeUtil.PointFromDistance(outerStartPoint, innerStartPoint, cornerRadius);
                 var outerStartPoint2 = ShapeUtil.PointOnCircle(centerPoint, outerRadius, StartAnglePercent + outerAngleOffset);
-                var outerEndPoint1 = ShapeUtil.PointOnCircle(centerPoint, outerRadius, StartAnglePercent + AnglePercent - outerAngleOffset);
+                var outerEndPoint1 = ShapeUtil.PointOnCircle(centerPoint, outerRadius, StartAnglePercent + anglePercent - outerAngleOffset);
                 var outerEndPoint2 = ShapeUtil.PointFromDistance(outerEndPoint, innerEndPoint, cornerRadius);
                 var innerEndPoint1 = ShapeUtil.PointFromDistance(innerEndPoint, outerEndPoint, cornerRadius);
-                var innerEndPoint2 = ShapeUtil.PointOnCircle(centerPoint, innerRadius, StartAnglePercent + AnglePercent - innerAngleOffset);
+                var innerEndPoint2 = ShapeUtil.PointOnCircle(centerPoint, innerRadius, StartAnglePercent + anglePercent - innerAngleOffset);
                 var innerStartPoint1 = ShapeUtil.PointOnCircle(centerPoint, innerRadius, StartAnglePercent + innerAngleOffset);
                 var innerStartPoint2 = ShapeUtil.PointFromDistance(innerStartPoint, outerStartPoint, cornerRadius);
 
                 pathBuilder.Append($@"M {outerStartPoint1.X},{outerStartPoint1.Y} 
                                                         A {cornerRadius},{cornerRadius} 0 0 1 {outerStartPoint2.X},{outerStartPoint2.Y} 
-                                                        A {outerRadius},{outerRadius} 0 {(AnglePercent > 0.5 ? 1 : 0)} 1 {outerEndPoint1.X},{outerEndPoint1.Y}
+                                                        A {outerRadius},{outerRadius} 0 {(anglePercent > 0.5 ? 1 : 0)} 1 {outerEndPoint1.X},{outerEndPoint1.Y}
                                                         A {cornerRadius},{cornerRadius} 0 0 1 {outerEndPoint2.X},{outerEndPoint2.Y}
                                                         L {innerEndPoint1.X},{innerEndPoint1.Y}
                                                         A {cornerRadius},{cornerRadius} 0 0 1 {innerEndPoint2.X},{innerEndPoint2.Y}
-                                                        A {innerRadius},{innerRadius} 0 {(AnglePercent > 0.5 ? 1 : 0)} 0 {innerStartPoint1.X},{innerStartPoint1.Y}
+                                                        A {innerRadius},{innerRadius} 0 {(anglePercent > 0.5 ? 1 : 0)} 0 {innerStartPoint1.X},{innerStartPoint1.Y}
                                                         A {cornerRadius},{cornerRadius} 0 0 1 {innerStartPoint2.X},{innerStartPoint2.Y}
                                                         Z");
             }
 
-            var path = Geometry.Parse(pathBuilder.ToString());
-            drawingContext.DrawGeometry(doughnutSeries.Fill, new Pen(doughnutSeries.Stroke, doughnutSeries.StrokeThickness), path);
+            try
+            {
+                var path = Geometry.Parse(pathBuilder.ToString());
+                drawingContext.DrawGeometry(doughnutSeries.Fill, new Pen(doughnutSeries.Stroke, doughnutSeries.StrokeThickness), path);
+            }
+            catch { }
         }
+
+
         #endregion
 
     }

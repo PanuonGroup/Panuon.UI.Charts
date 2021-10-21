@@ -10,79 +10,25 @@
         Height="450"
         Width="800">
     <Grid>
-        <pucharts:PieChartPanel Width="400"
-                                Height="400"
-                                pucharts:DoughnutChartSeries.Thickness="60">
-            <pucharts:DoughnutChartSeries Caption="Hello"
-                                          Value="200"
-                                          Thickness="60"
-                                          CornerRadius="5">
-                <pucharts:DoughnutChartSeries.Fill>
-                    <LinearGradientBrush StartPoint="0,0"
-                                         EndPoint="1,0">
-                        <GradientStop Color="#ff7070" 
-                                      Offset="0"/>
-                        <GradientStop Color="#AAff7070"
-                                      Offset="1" />
-                    </LinearGradientBrush>
-                </pucharts:DoughnutChartSeries.Fill>
-            </pucharts:DoughnutChartSeries>
-            <pucharts:DoughnutChartSeries Caption="Hello"
-                                          Value="100"
-                                          Thickness="60"
-                                          CornerRadius="5">
-                <pucharts:DoughnutChartSeries.Fill>
-                    <LinearGradientBrush StartPoint="0,0"
-                                         EndPoint="1,0">
-                        <GradientStop Color="#fac858"
-                                      Offset="0" />
-                        <GradientStop Color="#AAfac858"
-                                      Offset="1" />
-                    </LinearGradientBrush>
-                </pucharts:DoughnutChartSeries.Fill>
-            </pucharts:DoughnutChartSeries>
-            <pucharts:DoughnutChartSeries Caption="Hello"
+        <pucharts:PieChartPanel Radius="200"
+                                Spacing="3"
+                                CornerRadius="5"
+                                pucharts:DoughnutSeries.Thickness="30">
+            <pucharts:PieSeries Caption="Hello"
+                                          Value="120"
+                                          Fill="#FF7070" />
+            <pucharts:PieSeries Caption="Hello"
+                                          Value="120"
+                                          Fill="#FAC858" />
+            <pucharts:PieSeries Caption="Hello"
                                           Value="50"
-                                          Thickness="60"
-                                          CornerRadius="5">
-                <pucharts:DoughnutChartSeries.Fill>
-                    <LinearGradientBrush StartPoint="0,0"
-                                         EndPoint="1,0">
-                        <GradientStop Color="#91cc75"
-                                      Offset="0" />
-                        <GradientStop Color="#AA91cc75"
-                                      Offset="1" />
-                    </LinearGradientBrush>
-                </pucharts:DoughnutChartSeries.Fill>
-            </pucharts:DoughnutChartSeries>
-            <pucharts:DoughnutChartSeries Caption="Hello"
+                                          Fill="#91CC75"/>
+            <pucharts:PieSeries Caption="Hello"
                                           Value="30"
-                                          Thickness="60"
-                                          CornerRadius="5">
-                <pucharts:DoughnutChartSeries.Fill>
-                    <LinearGradientBrush StartPoint="0,0"
-                                         EndPoint="1,0">
-                        <GradientStop Color="#5470c6"
-                                      Offset="0" />
-                        <GradientStop Color="#AA5470c6"
-                                      Offset="1" />
-                    </LinearGradientBrush>
-                </pucharts:DoughnutChartSeries.Fill>
-            </pucharts:DoughnutChartSeries>
-            <pucharts:DoughnutChartSeries Caption="Hello"
+                                          Fill="#5470C6" />
+            <pucharts:PieSeries Caption="Hello"
                                           Value="15"
-                                          Thickness="60"
-                                          CornerRadius="5">
-                <pucharts:DoughnutChartSeries.Fill>
-                    <LinearGradientBrush StartPoint="0,0"
-                                         EndPoint="1,0">
-                        <GradientStop Color="#73c0de"
-                                      Offset="0" />
-                        <GradientStop Color="#AA73c0de"
-                                      Offset="1" />
-                    </LinearGradientBrush>
-                </pucharts:DoughnutChartSeries.Fill>
-            </pucharts:DoughnutChartSeries>
+                                          Fill="#73C0DE" />
         </pucharts:PieChartPanel>
     </Grid>
 </Window>

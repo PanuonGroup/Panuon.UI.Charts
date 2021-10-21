@@ -5,7 +5,7 @@ using System.Windows.Media;
 
 namespace Panuon.UI.Charts
 {
-    public abstract class CartesianSeriesBase : ChartSeriesBase
+    public abstract class CartesianChartSeriesBase : ChartSeriesBase
     {
         #region Methods
         public virtual void BeginDraw(DrawingContext drawingContext) { }

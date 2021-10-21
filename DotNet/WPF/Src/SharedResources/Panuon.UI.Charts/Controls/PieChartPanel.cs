@@ -22,7 +22,38 @@ namespace Panuon.UI.Charts
 
         #region Properties
 
+        #region Spacing
+        public double Spacing
+        {
+            get { return (double)GetValue(SpacingProperty); }
+            set { SetValue(SpacingProperty, value); }
+        }
 
+        public static readonly DependencyProperty SpacingProperty =
+            DependencyProperty.Register("Spacing", typeof(double), typeof(PieChartPanel), new ChartPropertyMetadata(3d));
+        #endregion
+
+        #region Radius
+        public double? Radius
+        {
+            get { return (double?)GetValue(RadiusProperty); }
+            set { SetValue(RadiusProperty, value); }
+        }
+
+        public static readonly DependencyProperty RadiusProperty =
+            DependencyProperty.Register("Radius", typeof(double?), typeof(PieChartPanel), new ChartPropertyMetadata(null));
+        #endregion
+
+        #region CornerRadius
+        public double CornerRadius
+        {
+            get { return (double)GetValue(CornerRadiusProperty); }
+            set { SetValue(CornerRadiusProperty, value); }
+        }
+
+        public static readonly DependencyProperty CornerRadiusProperty =
+            DependencyProperty.Register("CornerRadius", typeof(double), typeof(PieChartPanel), new ChartPropertyMetadata(0d));
+        #endregion
 
         #endregion
 

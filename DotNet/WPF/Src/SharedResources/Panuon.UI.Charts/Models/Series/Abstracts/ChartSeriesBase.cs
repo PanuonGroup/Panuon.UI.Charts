@@ -22,7 +22,7 @@ namespace Panuon.UI.Charts
         }
 
         public static readonly DependencyProperty CaptionProperty =
-            DependencyProperty.Register("Caption", typeof(string), typeof(ChartSeriesBase), new ChartSeriesPropertyMetadata(null));
+            DependencyProperty.Register("Caption", typeof(string), typeof(ChartSeriesBase), new ChartPropertyMetadata(null));
         #endregion
 
         #region CaptionForeground
@@ -33,7 +33,7 @@ namespace Panuon.UI.Charts
         }
 
         public static readonly DependencyProperty CaptionForegroundProperty =
-            DependencyProperty.Register("CaptionForeground", typeof(Brush), typeof(ChartSeriesBase), new ChartSeriesPropertyMetadata(null));
+            DependencyProperty.Register("CaptionForeground", typeof(Brush), typeof(ChartSeriesBase), new ChartPropertyMetadata(null));
         #endregion
 
         #region Stroke
@@ -44,7 +44,7 @@ namespace Panuon.UI.Charts
         }
 
         public static readonly DependencyProperty StrokeProperty =
-            DependencyProperty.Register("Stroke", typeof(Brush), typeof(ChartSeriesBase), new ChartSeriesPropertyMetadata(null));
+            DependencyProperty.Register("Stroke", typeof(Brush), typeof(ChartSeriesBase), new ChartPropertyMetadata(null));
         #endregion
 
         #region StrokeThickness
@@ -55,7 +55,7 @@ namespace Panuon.UI.Charts
         }
 
         public static readonly DependencyProperty StrokeThicknessProperty =
-            DependencyProperty.Register("StrokeThickness", typeof(double), typeof(ChartSeriesBase), new ChartSeriesPropertyMetadata(0d));
+            DependencyProperty.Register("StrokeThickness", typeof(double), typeof(ChartSeriesBase), new ChartPropertyMetadata(0d));
         #endregion
 
         #region Fill
@@ -66,7 +66,7 @@ namespace Panuon.UI.Charts
         }
 
         public static readonly DependencyProperty FillProperty =
-            DependencyProperty.Register("Fill", typeof(Brush), typeof(ChartSeriesBase), new ChartSeriesPropertyMetadata(null));
+            DependencyProperty.Register("Fill", typeof(Brush), typeof(ChartSeriesBase), new ChartPropertyMetadata(null));
         #endregion
 
         #endregion

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Panuon.UI.Charts.Internal.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -9,8 +10,6 @@ namespace Panuon.UI.Charts.Internal.Controls
     internal class PieChartPresenter : FrameworkElement
     {
         #region Fields
-        private double _interval = 0.003;
-
         private PieChartPanel _pieChartPanel;
 
         private readonly List<ArcDrawingElement> _arcDrawingElements = new List<ArcDrawingElement>();
@@ -20,10 +19,12 @@ namespace Panuon.UI.Charts.Internal.Controls
         public PieChartPresenter(PieChartPanel chartPanel)
         {
             _pieChartPanel = chartPanel;
+            _pieChartPanel.InvalidDrawing += PieChartPanel_InvalidDrawing;
 
             GenerateFromSeries();
             chartPanel.SeriesChanged += ChartPanel_SeriesChanged;
         }
+
         #endregion
 
         #region Overrides
@@ -50,12 +51,12 @@ namespace Panuon.UI.Charts.Internal.Controls
         #region ArrangeOverride
         protected override Size ArrangeOverride(Size finalSize)
         {
-            var radius = Math.Min(finalSize.Width / 2, finalSize.Height / 2);
+          
 
             var totalValue = 0d;
-            foreach (var pieSeries in _arcDrawingElements.Select(x => (PieChartSeries)x.SeriesBase))
+            foreach (var pieSeries in _arcDrawingElements.Select(x => (PieChartSeriesBase)x.Series))
             {
-                totalValue += pieSeries.DoubleValue;
+                totalValue += pieSeries.Value;
             }
 
             if (totalValue != 0)
@@ -63,10 +64,11 @@ namespace Panuon.UI.Charts.Internal.Controls
                 var totalAnglePercent = 0d;
                 foreach (var arcDrawingElement in _arcDrawingElements)
                 {
-                    var anglePercent = ((PieChartSeries)arcDrawingElement.SeriesBase).DoubleValue / totalValue;
+                    var pieChartSeries = (PieChartSeriesBase)arcDrawingElement.Series;
+
+                    var anglePercent = pieChartSeries.Value / totalValue;
                     arcDrawingElement.StartAnglePercent = totalAnglePercent;
-                    arcDrawingElement.AnglePercent = anglePercent - _interval;
-                    arcDrawingElement.Radius = radius;
+                    arcDrawingElement.AnglePercent = anglePercent;
                     totalAnglePercent += anglePercent;
 
                     arcDrawingElement.Arrange(new Rect(0, 0, finalSize.Width, finalSize.Height));
@@ -86,7 +88,7 @@ namespace Panuon.UI.Charts.Internal.Controls
                 for (int i = _arcDrawingElements.Count - 1; i >= 0; i--)
                 {
                     var arcDrawingElement = _arcDrawingElements[i];
-                    if (e.RemovedSeries.Contains(arcDrawingElement.SeriesBase))
+                    if (e.RemovedSeries.Contains(arcDrawingElement.Series))
                     {
                         _arcDrawingElements.RemoveAt(i);
                         RemoveVisualChild(arcDrawingElement);
@@ -97,15 +99,25 @@ namespace Panuon.UI.Charts.Internal.Controls
             {
                 foreach (var seriesBase in e.AddedSeries)
                 {
-                    if(seriesBase is PieChartSeries pieChartSeries)
+                    if (seriesBase is PieChartSeriesBase pieChartSeries)
                     {
-                        var arcDrawingElement = new ArcDrawingElement(pieChartSeries);
+                        var arcDrawingElement = new ArcDrawingElement(_pieChartPanel, pieChartSeries);
                         _arcDrawingElements.Add(arcDrawingElement);
                         AddVisualChild(arcDrawingElement);
                     }
                 }
             }
-            InvalidateVisual();
+            InvalidateArrange();
+        }
+
+
+        private void PieChartPanel_InvalidDrawing(object sender, EventArgs e)
+        {
+            InvalidateArrange();
+            foreach(var arcElement in _arcDrawingElements)
+            {
+                arcElement.InvalidateVisual();
+            }
         }
         #endregion
 
@@ -116,9 +128,9 @@ namespace Panuon.UI.Charts.Internal.Controls
             {
                 foreach (var seriesBase in _pieChartPanel.Series)
                 {
-                    if (seriesBase is PieChartSeries pieChartSeries)
+                    if (seriesBase is PieChartSeriesBase pieChartSeries)
                     {
-                        var arcDrawingElement = new ArcDrawingElement(pieChartSeries);
+                        var arcDrawingElement = new ArcDrawingElement(_pieChartPanel, pieChartSeries);
                         _arcDrawingElements.Add(arcDrawingElement);
                         AddVisualChild(arcDrawingElement);
                     }
