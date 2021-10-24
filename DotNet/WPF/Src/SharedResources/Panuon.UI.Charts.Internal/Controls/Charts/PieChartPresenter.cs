@@ -51,8 +51,6 @@ namespace Panuon.UI.Charts.Internal.Controls
         #region ArrangeOverride
         protected override Size ArrangeOverride(Size finalSize)
         {
-          
-
             var totalValue = 0d;
             foreach (var pieSeries in _arcDrawingElements.Select(x => (PieChartSeriesBase)x.Series))
             {

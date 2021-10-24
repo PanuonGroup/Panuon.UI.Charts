@@ -10,23 +10,24 @@
         Height="450"
         Width="800">
     <Grid>
-        <pucharts:PieChartPanel Radius="200"
-                                Spacing="3"
-                                CornerRadius="5"
+        <pucharts:PieChartPanel x:Name="chartPanel"
+                                Radius="200"
+                                SeriesSpacing="3"
+                                CornerRadius="10"
                                 pucharts:DoughnutSeries.Thickness="30">
-            <pucharts:PieSeries Caption="Hello"
+            <pucharts:PieSeries Caption="Area 1"
                                           Value="120"
                                           Fill="#FF7070" />
-            <pucharts:PieSeries Caption="Hello"
+            <pucharts:PieSeries Caption="Area 2"
                                           Value="120"
                                           Fill="#FAC858" />
-            <pucharts:PieSeries Caption="Hello"
+            <pucharts:PieSeries Caption="Area 3"
                                           Value="50"
                                           Fill="#91CC75"/>
-            <pucharts:PieSeries Caption="Hello"
+            <pucharts:PieSeries Caption="Area 4"
                                           Value="30"
                                           Fill="#5470C6" />
-            <pucharts:PieSeries Caption="Hello"
+            <pucharts:PieSeries Caption="Area 5"
                                           Value="15"
                                           Fill="#73C0DE" />
         </pucharts:PieChartPanel>

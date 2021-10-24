@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Controls\Charts\PieChartPresenter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\ItemsControl.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\Series\ArcDrawingElement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\Components\ChartsPresenter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\Components\YAxisPresenter.cs" />

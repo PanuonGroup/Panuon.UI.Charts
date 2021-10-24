@@ -46,6 +46,50 @@ namespace Panuon.UI.Charts
             DependencyProperty.Register("Series", typeof(SeriesCollection), typeof(ChartPanelBase), new PropertyMetadata(OnSeriesChanged));
         #endregion
 
+        #region LegendVisibility
+        public Visibility LegendVisibility
+        {
+            get { return (Visibility)GetValue(LegendVisibilityProperty); }
+            set { SetValue(LegendVisibilityProperty, value); }
+        }
+
+        public static readonly DependencyProperty LegendVisibilityProperty =
+            DependencyProperty.Register("LegendVisibility", typeof(Visibility), typeof(ChartPanelBase), new PropertyMetadata(Visibility.Visible));
+        #endregion
+
+        #region LegendStyle
+        public Style LegendStyle
+        {
+            get { return (Style)GetValue(LegendStyleProperty); }
+            set { SetValue(LegendStyleProperty, value); }
+        }
+
+        public static readonly DependencyProperty LegendStyleProperty =
+            DependencyProperty.Register("LegendStyle", typeof(Style), typeof(ChartPanelBase));
+        #endregion
+
+        #region LegendPlacement
+        public LegendPlacement LegendPlacement
+        {
+            get { return (LegendPlacement)GetValue(LegendPlacementProperty); }
+            set { SetValue(LegendPlacementProperty, value); }
+        }
+
+        public static readonly DependencyProperty LegendPlacementProperty =
+            DependencyProperty.Register("LegendPlacement", typeof(LegendPlacement), typeof(ChartPanelBase), new FrameworkPropertyMetadata(LegendPlacement.Left, FrameworkPropertyMetadataOptions.AffectsArrange));
+        #endregion
+
+        #region LegendSpacing
+        public double LegendSpacing
+        {
+            get { return (double)GetValue(LegendSpacingProperty); }
+            set { SetValue(LegendSpacingProperty, value); }
+        }
+
+        public static readonly DependencyProperty LegendSpacingProperty =
+            DependencyProperty.Register("LegendSpacing", typeof(double), typeof(ChartPanelBase), new FrameworkPropertyMetadata(10d, FrameworkPropertyMetadataOptions.AffectsArrange));
+        #endregion
+
         #endregion
 
         #region Protected Properties
@@ -91,6 +135,16 @@ namespace Panuon.UI.Charts
             if (e.NewValue is SeriesCollection newSeries)
             {
                 addedItems = newSeries.ToList();
+                if (newSeries.Any())
+                {
+                    foreach (ChartSeriesBase item in newSeries)
+                    {
+                        if (item != null)
+                        {
+                            chartPanel.AddLogicalChild(item);
+                        }
+                    }
+                }
                 newSeries.CollectionChanged += chartPanel.Series_CollectionChanged;
             }
 

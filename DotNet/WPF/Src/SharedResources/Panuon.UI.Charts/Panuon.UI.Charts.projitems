@@ -12,14 +12,15 @@
     <Folder Include="$(MSBuildThisFileDirectory)Controls\Abstracts\" />
     <Folder Include="$(MSBuildThisFileDirectory)Models\Series\Cartesian\" />
     <Folder Include="$(MSBuildThisFileDirectory)Models\Series\Pie\" />
-    <Folder Include="$(MSBuildThisFileDirectory)Utils\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Contracts\IXAxis.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Contracts\IYAxis.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\ChartLegend.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\CartesianChartPanel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\Abstracts\ChartPanelBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\PieChartPanel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Enums\LegendPlacement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Events\GeneratingLabelEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Events\SeriesChangedEventHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Events\GeneratingLabelEventHandler.cs" />
@@ -35,5 +36,19 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\Axes\YAxis.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Series\Pie\DoughnutSeries.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Series\Pie\PieSeries.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)Styles\ChartLegendStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Templates\ChartLegendTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Themes\Generic.Core.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 </Project>

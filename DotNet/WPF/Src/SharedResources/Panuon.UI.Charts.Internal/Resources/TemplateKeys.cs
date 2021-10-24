@@ -6,6 +6,6 @@ namespace Panuon.UI.Charts.Internal.Resources
 {
     internal static class TemplateKeys
     {
-        public const string CartesianChartPanelTemplate = nameof(CartesianChartPanelTemplate);
+        public const string ChartLegendTemplate = nameof(ChartLegendTemplate);
     }
 }

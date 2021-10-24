@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Caliburn.Micro;
+using Panuon.UI.Charts;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +26,31 @@ namespace Samples
         public MainWindow()
         {
             InitializeComponent();
+
+            var viewModel = new ViewModel();
+            DataContext = viewModel;
+
+            viewModel.Series = new SeriesCollection()
+            {
+                new DoughnutSeries()
+                {
+                     Caption = "门诊医师工作站",
+                      Value = 3,
+                      Fill = Brushes.Red,
+                },
+                new DoughnutSeries()
+                {
+                     Caption = "护士工作站",
+                      Value = 2,
+                      Fill = Brushes.Green,
+                },
+            };
         }
+    }
+
+    public class ViewModel : PropertyChangedBase
+    {
+        public SeriesCollection Series { get => _series; set => Set(ref _series, value); }
+        private SeriesCollection _series;
     }
 }

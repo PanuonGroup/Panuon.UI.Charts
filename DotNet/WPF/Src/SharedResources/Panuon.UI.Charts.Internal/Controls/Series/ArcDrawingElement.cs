@@ -73,7 +73,7 @@ namespace Panuon.UI.Charts.Internal.Controls
             var pieChartPanel = (PieChartPanel)ChartPanel;
             var radius = pieChartPanel.Radius
                 ?? Math.Min(RenderSize.Width / 2, RenderSize.Height / 2);
-            var spacingAngle = ShapeUtil.AnglePercentFromArcLength(pieChartPanel.Spacing, radius);
+            var spacingAngle = ShapeUtil.AnglePercentFromArcLength(pieChartPanel.SeriesSpacing, radius);
             var anglePercent = AnglePercent - spacingAngle;
 
             var cornerRadius = pieChartPanel.CornerRadius;
@@ -84,7 +84,7 @@ namespace Panuon.UI.Charts.Internal.Controls
             var outerStartPoint = ShapeUtil.PointOnCircle(centerPoint, outerRadius, StartAnglePercent);
             var outerHalfPoint = ShapeUtil.PointOnCircle(centerPoint, outerRadius, StartAnglePercent + anglePercent / 2);
             var outerEndPoint = ShapeUtil.PointOnCircle(centerPoint, outerRadius, StartAnglePercent + anglePercent);
-            var innerCenterPoint = ShapeUtil.PointFromDistance(centerPoint, outerHalfPoint, Math.Sqrt(pieChartPanel.Spacing));
+            var innerCenterPoint = ShapeUtil.PointFromDistance(centerPoint, outerHalfPoint, Math.Sqrt(pieChartPanel.SeriesSpacing / 2 * pieChartPanel.SeriesSpacing / 2 + pieChartPanel.SeriesSpacing / 2 * pieChartPanel.SeriesSpacing / 2));
 
             var pathBuilder = new StringBuilder();
 
@@ -130,7 +130,7 @@ namespace Panuon.UI.Charts.Internal.Controls
             var pieChartPanel = (PieChartPanel)ChartPanel;
             var radius = pieChartPanel.Radius
               ?? Math.Min(RenderSize.Width / 2, RenderSize.Height / 2);
-            var spacingAngle = ShapeUtil.AnglePercentFromArcLength(pieChartPanel.Spacing, radius);
+            var spacingAngle = ShapeUtil.AnglePercentFromArcLength(pieChartPanel.SeriesSpacing, radius);
             var anglePercent = AnglePercent - spacingAngle;
 
             var cornerRadius = pieChartPanel.CornerRadius;

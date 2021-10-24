@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
+using System.Windows.Data;
+using System.Windows.Media;
 
 namespace Panuon.UI.Charts
 {
@@ -10,6 +12,8 @@ namespace Panuon.UI.Charts
     {
         #region Fields
         private PieChartPresenter _presenter;
+
+        private ChartLegend _chartLegend;
         #endregion
 
         #region Ctor
@@ -17,20 +21,38 @@ namespace Panuon.UI.Charts
         {
             _presenter = new PieChartPresenter(this);
             AddVisualChild(_presenter);
+
+            _chartLegend = new ChartLegend();
+            _chartLegend.SetBinding(ChartLegend.StyleProperty, new Binding()
+            {
+                Path = new PropertyPath(LegendStyleProperty),
+                Source = this,
+            });
+            _chartLegend.SetBinding(ChartLegend.VisibilityProperty, new Binding()
+            {
+                Path = new PropertyPath(LegendVisibilityProperty),
+                Source = this,
+            });
+            _chartLegend.SetBinding(ChartLegend.ItemsSourceProperty, new Binding()
+            {
+                Path = new PropertyPath(SeriesProperty),
+                Source = this,
+            });
+            AddVisualChild(_chartLegend);
         }
         #endregion
 
         #region Properties
 
-        #region Spacing
-        public double Spacing
+        #region SeriesSpacing
+        public double SeriesSpacing
         {
-            get { return (double)GetValue(SpacingProperty); }
-            set { SetValue(SpacingProperty, value); }
+            get { return (double)GetValue(SeriesSpacingProperty); }
+            set { SetValue(SeriesSpacingProperty, value); }
         }
 
-        public static readonly DependencyProperty SpacingProperty =
-            DependencyProperty.Register("Spacing", typeof(double), typeof(PieChartPanel), new ChartPropertyMetadata(3d));
+        public static readonly DependencyProperty SeriesSpacingProperty =
+            DependencyProperty.Register("SeriesSpacing", typeof(double), typeof(PieChartPanel), new ChartPropertyMetadata(3d));
         #endregion
 
         #region Radius
@@ -60,13 +82,19 @@ namespace Panuon.UI.Charts
         #region Overrides
         protected override Size MeasureOverride(Size availableSize)
         {
+            _chartLegend.Measure(availableSize);
             _presenter.Measure(availableSize);
             return base.MeasureOverride(availableSize);
         }
 
         protected override Size ArrangeOverride(Size finalSize)
         {
-            _presenter.Arrange(new Rect(0, 0, finalSize.Width, finalSize.Height));
+            var legendSpacing = LegendSpacing ;
+            _chartLegend.Arrange(new Rect(finalSize.Width - legendSpacing - _chartLegend.DesiredSize.Width,
+                (finalSize.Height - _chartLegend.DesiredSize.Height - legendSpacing * 2) / 2,
+                _chartLegend.DesiredSize.Width,
+                _chartLegend.DesiredSize.Height));
+            _presenter.Arrange(new Rect(0, 0, finalSize.Width - legendSpacing * 2 - _chartLegend.DesiredSize.Width, finalSize.Height));
             return base.ArrangeOverride(finalSize);
         }
         #endregion

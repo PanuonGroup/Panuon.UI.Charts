@@ -35,4 +35,7 @@ D:\Panuon\Panuon.UI.Charts\DotNet\WPF\Src\Samples\Samples\obj\Debug\Samples.g.re
 D:\Panuon\Panuon.UI.Charts\DotNet\WPF\Src\Samples\Samples\obj\Debug\Samples.Properties.Resources.resources
 D:\Panuon\Panuon.UI.Charts\DotNet\WPF\Src\Samples\Samples\obj\Debug\Samples.csproj.GenerateResource.cache
 D:\Panuon\Panuon.UI.Charts\DotNet\WPF\Src\Samples\Samples\obj\Debug\Samples.csproj.CoreCompileInputs.cache
+D:\Panuon\Panuon.UI.Charts\DotNet\WPF\Src\Samples\Samples\bin\Debug\Caliburn.Micro.Core.dll
+D:\Panuon\Panuon.UI.Charts\DotNet\WPF\Src\Samples\Samples\bin\Debug\Caliburn.Micro.Core.pdb
+D:\Panuon\Panuon.UI.Charts\DotNet\WPF\Src\Samples\Samples\bin\Debug\Caliburn.Micro.Core.xml
 D:\Panuon\Panuon.UI.Charts\DotNet\WPF\Src\Samples\Samples\obj\Debug\Samples.csproj.CopyComplete
